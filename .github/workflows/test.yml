@@ -5,8 +5,9 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-          - name: chekout
-            uses: actions/chekout@v5
+          - name: checkout
+            uses: actions/checkout@v5
+
           - name: node install
             uses: actions/setup-node@v4
             with:
@@ -28,12 +29,12 @@ jobs:
             run: |
               mkdir -p ~/.ssh
               echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/meinprivatekey
-              chmod 600 ~/ssh/meinprivatekey
+              chmod 600 ~/.ssh/meinprivatekey
               ssh-keyscan -H "${{secrets.EC2_IP}}" >> ~/.ssh/known_host
 
           - name: datei kopieren
             run: |
-              scp -i mehrwertsteuer.js ~/.ssh/meinprivatekey ubuntu@${{secrets.EC2_IP}}:home/ubuntu
+              scp -i ./mehrwertsteuer.js ~/.ssh/meinprivatekey ubuntu@${{secrets.EC2_IP}}:/home/ubuntu
 
 
 
