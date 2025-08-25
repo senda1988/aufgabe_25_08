@@ -7,7 +7,23 @@ jobs:
         steps:
           - name: chekout
             uses: actions/chekout@v5
+          - name: node install
+            uses: actions/setup-node@v4
+            with:
+                  node-version: "20"
 
+          - name: npm install
+            run: |
+                  cd testing-example
+                  npm install
+
+          - name: npm test
+            run: |
+                  cd testing-example
+                  npm test
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
           - name: ssh setup
             run: |
               mkdir -p ~/.ssh
@@ -18,7 +34,7 @@ jobs:
           - name: datei kopieren
             run: |
               scp -i mehrwertsteuer.js ~/.ssh/meinprivatekey ubuntu@${{secrets.EC2_IP}}:home/ubuntu
-              
+
 
 
           
