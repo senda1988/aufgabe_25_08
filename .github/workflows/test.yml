@@ -26,13 +26,13 @@ jobs:
         steps:
           - name: checkout
             uses: actions/checkout@v5
-              
+
           - name: ssh setup
             run: |
               mkdir -p ~/.ssh
               echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/meinprivatekey
               chmod 600 ~/.ssh/meinprivatekey
-              ssh-keyscan -H "${{secrets.EC2_IP}}" >> ~/.ssh/known_host
+              ssh-keyscan -H "${{secrets.EC2_IP}}" >> ~/.ssh/known_hosts
 
           - name: datei kopieren
             run: |
