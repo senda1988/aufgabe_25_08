@@ -33,7 +33,7 @@ jobs:
 
           - name: datei kopieren
             run: |
-              scp -i ./mehrwertsteuer.js ~/.ssh/meinprivatekey ubuntu@${{secrets.EC2_IP}}:/home/ubuntu
+              scp -i ~/.ssh/meinprivatekey ./mehrwertsteuer.js ubuntu@${{secrets.EC2_IP}}:/home/ubuntu
 
 
 
