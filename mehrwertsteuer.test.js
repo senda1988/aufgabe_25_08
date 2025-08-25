@@ -1,7 +1,7 @@
 const { mwst, brutto } = require("./mehrwertsteuer.js")
 
 test("7% von 100 gleich 7", () => {
-    expect(mwst(100, 0.07)).toBe(70);
+    expect(mwst(100, 0.07)).toBe(7);
 });
 
 test("19% von 200 gleich 38", () => {
