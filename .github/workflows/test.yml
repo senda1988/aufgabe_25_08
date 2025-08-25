@@ -15,12 +15,10 @@ jobs:
 
           - name: npm install
             run: |
-                  cd testing-example
                   npm install
 
           - name: npm test
             run: |
-                  cd testing-example
                   npm test
     deploy:
         runs-on: ubuntu-latest
