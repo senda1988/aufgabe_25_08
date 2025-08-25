@@ -24,6 +24,9 @@ jobs:
         needs: test
         runs-on: ubuntu-latest
         steps:
+          - name: checkout
+            uses: actions/checkout@v5
+              
           - name: ssh setup
             run: |
               mkdir -p ~/.ssh
