@@ -1,0 +1,24 @@
+name: test maherwertsteuer
+on: push
+
+jobs:
+    test:
+        runs-on: ubuntu-latest
+        steps:
+          - name: chekout
+            uses: actions/chekout@v5
+
+          - name: ssh setup
+            run: |
+              mkdir -p ~/.ssh
+              echo "${{secrets.SSH_PRIVATE_KEY}}" > ~/.ssh/meinprivatekey
+              chmod 600 ~/ssh/meinprivatekey
+              ssh-keyscan -H "${{secrets.EC2_IP}}" >> ~/.ssh/known_host
+
+          - name: datei kopieren
+            run: |
+              scp -i mehrwertsteuer.js ~/.ssh/meinprivatekey ubuntu@${{secrets.EC2_IP}}:home/ubuntu
+              
+
+
+          

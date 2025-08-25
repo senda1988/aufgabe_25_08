@@ -1,0 +1,23 @@
+{
+  "name": "aufgabe_25_08",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "mehrwertsteuer.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/senda1988/aufgabe_25_08.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/senda1988/aufgabe_25_08/issues"
+  },
+  "homepage": "https://github.com/senda1988/aufgabe_25_08#readme",
+  "dependencies": {
+    "jest": "^30.0.5"
+  }
+}
