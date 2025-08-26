@@ -11,7 +11,7 @@ jobs:
               webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
               webhook-type: incoming-webhook
               payload: |
-                text: "Test. Pipeline ${{ github.workflow }} ist fertig"
+                text: "Test Webhook. Pipeline ${{ github.workflow }} ist fertig"
               
           - name: node install
             uses: actions/setup-node@v4
