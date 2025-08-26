@@ -6,12 +6,15 @@ jobs:
         runs-on: ubuntu-latest
         steps:
           - name: Post a message in a channel
+            if: ${{ success() }}
             uses: slackapi/slack-github-action@v2.1.1
             with:
               webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
               webhook-type: incoming-webhook
               payload: |
-                text: "Test Webhook. Pipeline ${{ github.workflow }} ist fertig"
+                text: "Test Webhook ✅ . Pipeline ${{ github.workflow }} ist fertig"
+
+          
               
           - name: node install
             uses: actions/setup-node@v4
@@ -21,6 +24,7 @@ jobs:
           - name: npm install
             run: |
                   npm install
+     
 
           - name: npm test
             run: |
@@ -30,6 +34,24 @@ jobs:
             with:
                   name: coverage-report
                   path: ./coverage
+
+          - name: Slack Nachricht bei Erfolg
+            if: ${{ success() }}
+            uses: slackapi/slack-github-action@v2.1.1
+            with:
+              webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+              webhook-type: incoming-webhook
+              payload: |
+                text: "Test Webhook ✅ . Pipeline ${{ github.workflow }} ist fertig"
+
+          - name: Slack Nachricht bei Nicht Erfolg
+            if: ${{ failure() }}
+            uses: slackapi/slack-github-action@v2.1.1
+            with:
+              webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+              webhook-type: incoming-webhook
+              payload: |
+                text: "Test Job fehlgeschalgen ! ❌"
     deploy:
         needs: test
         if: ${{ success() }}
@@ -48,6 +70,11 @@ jobs:
           - name: datei kopieren
             run: |
               scp -i ~/.ssh/meinprivatekey ./mehrwertsteuer.js ubuntu@${{secrets.EC2_IP}}:/home/ubuntu
+
+          - name: datei anzeigen
+            if: ${{ success() }}
+            run: |
+              ssh -i ~/.ssh/meinprivatekey ubuntu@${{secrets.EC2_IP}} "cat /home/ubuntu/mehrwertsteuer.js"
 
 
 
