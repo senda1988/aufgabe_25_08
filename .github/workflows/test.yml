@@ -5,9 +5,14 @@ jobs:
     test:
         runs-on: ubuntu-latest
         steps:
-          - name: checkout
-            uses: actions/checkout@v5
-
+          - name: Post a message in a channel
+            uses: slackapi/slack-github-action@v2.1.1
+            with:
+              webhook: ${{ secrets.SLACK_WEBHOOK_URL }}
+              webhook-type: incoming-webhook
+              payload: |
+                text: "Test. Pipeline ${{ github.workflow }} ist fertig"
+              
           - name: node install
             uses: actions/setup-node@v4
             with:
@@ -27,6 +32,7 @@ jobs:
                   path: ./coverage
     deploy:
         needs: test
+        if: ${{ success() }}
         runs-on: ubuntu-latest
         steps:
           - name: checkout
